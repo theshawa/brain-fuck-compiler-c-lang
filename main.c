@@ -7,26 +7,6 @@ const char *COMMANDS = "+-<>[].,";
 const size_t CELL_COUNT = 300000;
 const int DEV_MODE = 0;
 
-typedef struct Error
-{
-    enum ErrorType
-    {
-        ERROR_NONE = 0,
-        ERROR_FILE,
-        ERROR_LOOP
-    } type;
-    char *message;
-} Error;
-
-#define ErrorPrep(err, t, m) \
-    (err).type = (t);        \
-    (err).message = (m);
-
-Error ok = {
-    ERROR_NONE,
-    NULL,
-};
-
 typedef struct Token
 {
     char value;
@@ -54,6 +34,12 @@ void print_usage(char *ex_path)
 
 size_t file_size(FILE *file)
 {
+    if (!file)
+    {
+        printf("Null file detected!!!");
+        exit(1);
+    }
+
     fpos_t original;
 
     if (fgetpos(file, &original) != 0)
@@ -76,6 +62,12 @@ size_t file_size(FILE *file)
 
 char *file_content(FILE *file)
 {
+    if (!file)
+    {
+        printf("Null file detected!!!");
+        exit(1);
+    }
+
     size_t size = file_size(file);
 
     char *content = malloc(size + 1);
@@ -109,6 +101,12 @@ char *file_content(FILE *file)
 
 Token *lex(char *content)
 {
+    if (!content)
+    {
+        printf("Null content detected!!!");
+        exit(1);
+    }
+
     Token *tokens = NULL;
     Token *tokens_it = tokens;
     char *current_char = content;
@@ -148,6 +146,12 @@ Token *lex(char *content)
 
 void print_tokens(Token *tokens)
 {
+    if (!tokens)
+    {
+        printf("Null tokens detected!!!");
+        exit(1);
+    }
+
     Token *current_token = tokens;
     while (current_token)
     {
@@ -158,6 +162,11 @@ void print_tokens(Token *tokens)
 
 void compile(Token *current_token, Cell *pointer, Cell *start, Cell *end)
 {
+    if (!current_token || !pointer || !start || !end)
+    {
+        printf("Null tokens detected!!!");
+        exit(1);
+    }
 
     Loop *loop = NULL;
     Loop *loop_it = loop;
