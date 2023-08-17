@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 const char *COMMANDS = "+-<>[].,";
 const size_t CELL_COUNT = 300000;
@@ -29,7 +30,7 @@ typedef struct Loop
 
 void print_usage(char *ex_path)
 {
-    printf("No file selected.\nUSAGE: %s <path_to_file>", ex_path);
+    printf("No file selected.\nUSAGE: %s <path_to_file>\n", ex_path);
 }
 
 size_t file_size(FILE *file)
@@ -258,9 +259,7 @@ int main(int argc, char **argv)
 
     printf("Compiling...\n\n");
 
-    FILE *file;
-
-    fopen_s(&file, argv[1], "r");
+    FILE *file = fopen(argv[1],"r");
 
     if (!file)
     {
@@ -292,7 +291,7 @@ int main(int argc, char **argv)
     free(content);
     free(cells);
 
-    printf("\n\nOperation Successful.\nCompiler developed by Theshawa Dasun(https://theshawa-dev.web.app)");
+    printf("\n\nOperation Successful.\nCompiler developed by Theshawa Dasun(https://theshawa-dev.web.app)\n");
 
     return 0;
 }
