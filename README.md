@@ -1,2 +1,2 @@
-🧠 Compiler for Brain Fuck Programming Language Developed using C Language 🧠 
+🧠 Interpreter for Brain Fuck Programming Language Developed using C Language 🧠 
 
